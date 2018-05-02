@@ -32,7 +32,7 @@ public class LiveUtil {
     public String genPushUrl(String userID, long txTime) {
         String liveCode = Config.Live.APP_BIZID + "_" + userID;
         String txSecret = Utils.getMD5(Config.Live.PUSH_SECRET_KEY + liveCode + Long.toHexString(txTime).toUpperCase());
-        String ext = "?APP_BIZID=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
+        String ext = "?bizid=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
         String pushUrl = "rtmp://" + Config.Live.APP_BIZID + ".livepush.myqcloud.com/live/" + liveCode + ext;
         log.info("genPushUrl , url: " + pushUrl);
         return pushUrl;
@@ -78,7 +78,7 @@ public class LiveUtil {
     public String genAcceleratePlayUrl(String subID, long txTime) {
         String liveCode = Config.Live.APP_BIZID + "_" + subID;
         String txSecret = Utils.getMD5(Config.Live.PUSH_SECRET_KEY + liveCode + Long.toHexString(txTime).toUpperCase());
-        String ext = "?APP_BIZID=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
+        String ext = "?bizid=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
         String accPlayUrl = "rtmp://" + Config.Live.APP_BIZID + ".liveplay.myqcloud.com/live/" + liveCode + ext;
         return accPlayUrl;
     }
@@ -91,7 +91,7 @@ public class LiveUtil {
         long txTime = System.currentTimeMillis() / 1000  + Config.Live.validTime;
         String liveCode = Config.Live.APP_BIZID + "_" + userID;
         String txSecret = Utils.getMD5(Config.Live.PUSH_SECRET_KEY + liveCode + Long.toHexString(txTime).toUpperCase());
-        String ext = "?APP_BIZID=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
+        String ext = "?bizid=" + Config.Live.APP_BIZID + "&txSecret=" + txSecret + "&txTime=" + Long.toHexString(txTime).toUpperCase();
         String pushUrl = "rtmp://" + Config.Live.APP_BIZID + ".livepush.myqcloud.com/live/" + liveCode + ext;
         String flvPlayUrl = "http://" + Config.Live.APP_BIZID + ".liveplay.myqcloud.com/live/" + liveCode + ".flv";
         String rtmpPlayUrl = "rtmp://" + Config.Live.APP_BIZID + ".liveplay.myqcloud.com/live/" + liveCode;
