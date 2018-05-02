@@ -24,7 +24,7 @@ public class Util {
     UtilService utilService;
 
     @ResponseBody
-    @RequestMapping("get_login_info")
+    @RequestMapping(value = "get_login_info")
     public GetLoginInfoRsp get_login_info(@ModelAttribute GetLoginInfoReq req){
         return imMgr.getLoginInfo(req.getUserID());
     }
