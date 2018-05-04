@@ -129,8 +129,15 @@ public class RoomServiceImpl implements RoomService {
         }
 
         String roomID = req.getRoomID();
-        if (roomID == null || roomID.length() == 0)
+        if (roomID == null || roomID.length() == 0) {
             roomID = Utils.genRoomIdByRandom();
+        } else {
+            if (roomMgr.isRoomExist(roomID, type)) {
+                rsp.setCode(11);
+                rsp.setMessage("房间已经存在");
+                return rsp;
+            }
+        }
         // 获取一个可用的roomid
         while (roomMgr.isRoomExist(roomID, type)) {
             roomID = Utils.genRoomIdByRandom();
@@ -308,13 +315,19 @@ public class RoomServiceImpl implements RoomService {
             return rsp;
         }
 
-        if (roomMgr.isRoomCreator(roomID, userID, type)) {
-            roomMgr.delRoom(roomID, type);
-            imMgr.destroyGroup(roomID);
-        } else if(roomMgr.isMember(roomID, userID, type)) {
+//        if (roomMgr.isRoomCreator(roomID, userID, type)) {
+//            roomMgr.delRoom(roomID, type);
+//            imMgr.destroyGroup(roomID);
+//        } else
+        if(roomMgr.isMember(roomID, userID, type)) {
             roomMgr.delPusher(roomID, userID, type);
             // notify
             imMgr.notifyPushersChange(roomID);
+        }
+
+        if (roomMgr.getMemberCnt(roomID, type) == 0) {
+            roomMgr.delRoom(roomID, type);
+            imMgr.destroyGroup(roomID);
         }
 
         return rsp;
